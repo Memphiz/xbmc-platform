@@ -1,0 +1,23 @@
+Source: xbmcplatform
+Priority: extra
+Maintainer: Arne Morten Kvarving <arne.morten.kvarving@sintef.no>
+Build-Depends: debhelper (>= 8.0.0), cmake, libtinyxml-dev
+Standards-Version: 3.9.2
+Section: libs
+Homepage: <insert the upstream URL, if relevant>
+
+Package: libxbmcplatform-dev
+Section: libdevel
+Architecture: any
+Depends: libxbmcplatform13 (= ${binary:Version})
+Provides: libxbmcplatform-dev
+Description: XBMC platform support library -- development files
+ XBMC platform support library 
+
+Package: libxbmcplatform13
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: libxbmcplatform
+Description: XBMC platform support library
+ XBMC platform support library
