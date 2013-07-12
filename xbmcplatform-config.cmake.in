@@ -1,0 +1,26 @@
+# - xbmcplatform config mode
+#
+# Defines the following variables:
+#  xbmcplatform_FOUND        - true
+#  xbmcplatform_VERSION      - version of the xbmcplatform library found, e.g. 0.2
+#  xbmcplatform_INCLUDE_DIRS - header directories with which to compile
+#  xbmcplatform_LINKER_FLAGS - flags that must be passed to the linker
+#  xbmcplatform_LIBRARIES    - names of the libraries with which to link
+#  xbmcplatform_LIBRARY_DIRS - directories in which the libraries are situated
+#
+# propagate these properties from one build system to the other
+set (xbmcplatform_VERSION "@xbmcplatform_VERSION_MAJOR@.@xbmcplatform_VERSION_MINOR@")
+set (xbmcplatform_INCLUDE_DIRS "@xbmcplatform_INCLUDE_DIRS@")
+set (xbmcplatform_LIBRARY_DIRS "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
+set (xbmcplatform_LINKER_FLAGS "@xbmcplatform_LINKER_FLAGS@")
+set (xbmcplatform_CONFIG_VARS "@xbmcplatform_CONFIG_VARS@")
+
+# libraries come from the build tree where this file was generated
+set (xbmcplatform_LIBRARY "@xbmcplatform_LIBRARY@")
+set (xbmcplatform_LIBRARIES ${xbmcplatform_LIBRARY} "@xbmcplatform_LIBRARIES@")
+mark_as_advanced (xbmcplatform_LIBRARY)
+
+# add the library as a target, so that other things in the project including
+# this file may depend on it and get rebuild if this library changes.
+add_library (xbmcplatform UNKNOWN IMPORTED)
+set_property (TARGET xbmcplatform PROPERTY IMPORTED_LOCATION "${xbmcplatform_LIBRARY}")

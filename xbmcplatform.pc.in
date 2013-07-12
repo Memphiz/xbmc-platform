@@ -3,7 +3,7 @@ libdir=@libdir@
 includedir=@includedir@
 CXX=@CMAKE_CXX_COMPILER@ @CXX_STD0X_FLAGS@ @OpenMP_CXX_FLAGS@
 CC=@CMAKE_C_COMPILER@ @C_STD99_FLAGS@ @OpenMP_C_FLAGS@
-DEPENDENCIES=@DEPLIBS@
+DEPENDENCIES=@xbmcplatform_LIBRARIES@
 
 Name: @name@
 Description: @description@ @major@.@minor@

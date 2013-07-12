@@ -23,10 +23,13 @@ ELSE(WIN32)
   SET(PLAT_SOURCES src/posix/serialport.cpp)
 ENDIF(WIN32)
 
+SET(xbmcplatform_INCLUDE_DIRS ${TINYXML_INCLUDE_DIR})
+SET(xbmcplatform_LIBRARIES ${CMAKE_THREAD_LIBS_INIT} ${TINYXML_LIBRARIES})
+SET(xbmcplatform_LIBRARY "-lxbmcplatform")
+
 SET(SOURCES src/util/XMLUtils.cpp)
 
 ADD_LIBRARY(xbmcplatform ${SOURCES} ${PLAT_SOURCES})
-SET(DEPLIBS ${CMAKE_THREAD_LIBS_INIT} ${TINYXML_LIBRARIES})
 TARGET_LINK_LIBRARIES(xbmcplatform ${DEPLIBS})
 SET_TARGET_PROPERTIES(xbmcplatform PROPERTIES VERSION 13.0.0
                                               SOVERSION 13.0)
@@ -53,6 +56,7 @@ INSTALL(FILES src/util/atomic.h
               src/util/XMLUtils.h
         DESTINATION include/xbmc/util)
 
+# Pkgconfig
 INCLUDE(PkgConfigHandler.cmake)
 configure_pc_file(xbmcplatform xbmcplatform.pc.in
                                xbmcplatform.pc
@@ -61,3 +65,8 @@ configure_pc_file(xbmcplatform xbmcplatform.pc.in
                                ${CMAKE_INSTALL_PREFIX}/include)
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/xbmcplatform.pc DESTINATION lib/pkgconfig)
+
+# config mode
+configure_file (xbmcplatform-config.cmake.in
+                xbmcplatform-config.cmake @ONLY)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/xbmcplatform-config.cmake DESTINATION lib/xbmcplatform)
