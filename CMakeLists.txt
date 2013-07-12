@@ -3,6 +3,11 @@ PROJECT(xbmcplatform)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 ENABLE_LANGUAGE(CXX)
 
+SET(xbmcplatform_NAME xbmcplatform)
+SET(xbmcplatform_DESCRIPTION "XBMC addon-on platform support library")
+SET(xbmcplatform_VERSION_MAJOR 13)
+SET(xbmcplatform_VERSION_MINOR 0)
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 FIND_PACKAGE(TinyXML REQUIRED)
@@ -21,7 +26,8 @@ ENDIF(WIN32)
 SET(SOURCES src/util/XMLUtils.cpp)
 
 ADD_LIBRARY(xbmcplatform ${SOURCES} ${PLAT_SOURCES})
-TARGET_LINK_LIBRARIES(xbmcplatform ${CMAKE_THREAD_LIBS_INIT} ${TINYXML_LIBRARIES})
+SET(DEPLIBS ${CMAKE_THREAD_LIBS_INIT} ${TINYXML_LIBRARIES})
+TARGET_LINK_LIBRARIES(xbmcplatform ${DEPLIBS})
 SET_TARGET_PROPERTIES(xbmcplatform PROPERTIES VERSION 13.0.0
                                               SOVERSION 13.0)
 
@@ -46,3 +52,12 @@ INSTALL(FILES src/util/atomic.h
               src/util/util.h
               src/util/XMLUtils.h
         DESTINATION include/xbmc/util)
+
+INCLUDE(PkgConfigHandler.cmake)
+configure_pc_file(xbmcplatform xbmcplatform.pc.in
+                               xbmcplatform.pc
+                               ${CMAKE_INSTALL_PREFIX}
+                               ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}
+                               ${CMAKE_INSTALL_PREFIX}/include)
+
+INSTALL(FILES ${CMAKE_BINARY_DIR}/xbmcplatform.pc DESTINATION lib/pkgconfig)
