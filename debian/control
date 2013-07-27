@@ -9,7 +9,7 @@ Package: libxbmcplatform-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libxbmcplatform13 (= ${binary:Version})
+Depends: libxbmcplatform13 (= ${binary:Version}), libtinyxml-dev
 Provides: libxbmcplatform-dev
 Description: XBMC platform support library -- development files
  XBMC platform support library 
